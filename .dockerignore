@@ -1,0 +1,10 @@
+# Ignore secrets
+passphrase.txt
+env*F
+# Ignore logs and cache
+logs/
+cache/
+# Ignore Git repository
+git
+# Ignore markdown docs
+*.md
