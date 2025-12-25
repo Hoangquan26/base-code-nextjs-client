@@ -1,0 +1,11 @@
+version: "3.6"
+services:
+  myapp:
+    build: .
+    container_name: myapp_container
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+    environment:
+      - ENV=development

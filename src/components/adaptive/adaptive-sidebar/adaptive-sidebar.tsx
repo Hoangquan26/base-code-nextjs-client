@@ -86,7 +86,7 @@ function SidebarNav({ sections }: SidebarNavProps) {
                                                 tooltip={item.title}
                                                 onClick={handleNavigate}
                                             >
-                                                <Link href={item.href}>
+                                                <Link href={item.href} >
                                                     {Icon ? <Icon className="h-4 w-4" /> : null}
                                                     <span>{item.title}</span>
                                                 </Link>

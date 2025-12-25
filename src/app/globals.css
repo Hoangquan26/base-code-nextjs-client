@@ -4,6 +4,15 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-vicenza: var(--vicenza);
+  --color-vicenza-100: var(--vicenza-100);
+  --color-vicenza-200: var(--vicenza-200);
+  --color-vicenza-300: var(--vicenza-300);
+  --color-vicenza-400: var(--vicenza-400);
+  --color-vicenza-500: var(--vicenza-500);
+  --color-vicenza-600: var(--vicenza-600);
+  --color-vicenza-700: var(--vicenza-700);
+  --color-vicenza-800: var(--vicenza-800);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
@@ -82,6 +91,16 @@
 }
 
 :root {
+  --vicenza: #f0c21c;
+  --vicenza-100: #fef9e8;
+  --vicenza-200: #fbf0c6;
+  --vicenza-300: #f9e7a4;
+  --vicenza-400: #f6da77;
+  --vicenza-500: #f0c21c;
+  --vicenza-600: #cca518;
+  --vicenza-700: #a88814;
+  --vicenza-800: #846b0f;
+  --vicenza-secondary: #0b143b;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -152,6 +171,15 @@
 }
 
 .dark {
+  --vicenza: #f0c21c;
+  --vicenza-100: #fef9e8;
+  --vicenza-100: #fbf0c6;
+  --vicenza-200: #f9e7a4;
+  --vicenza-300: #f6da77;
+  --vicenza-400: #f0c21c;
+  --vicenza-500: #cca518;
+  --vicenza-600: #a88814;
+  --vicenza-700: #846b0f;
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.208 0.042 265.755);
