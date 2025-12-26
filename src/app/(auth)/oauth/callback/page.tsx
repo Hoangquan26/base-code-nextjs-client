@@ -3,23 +3,34 @@
 import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { AuthActions } from '@/stores/auth/auth.action'
+import AppLoading from '@/components/shared/app-loading/app-loading'
 
 export default function OAuthCallbackPage() {
     const params = useSearchParams()
     const router = useRouter()
 
     useEffect(() => {
-        try {
-            AuthActions.hydrateFromCallback(params)
+        const handleCallback = async () => {
+            try {
+                AuthActions.hydrateFromCallback(params)
+            } catch {
+                router.replace('/login')
+                return
+            }
+
+            try {
+                await AuthActions.fetchMe()
+            } catch {
+                // ignore profile load errors, still redirect to dashboard
+            }
+
             router.replace('/dashboard')
-        } catch (e) {
-            router.replace('/login')
         }
-    }, [])
+
+        handleCallback()
+    }, [params, router])
 
     return (
-        <div className="flex h-screen items-center justify-center">
-            <p>Đang đăng nhập...</p>
-        </div>
+        <AppLoading />
     )
 }

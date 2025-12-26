@@ -9,8 +9,9 @@ import { configuration } from "@/config/configuration"
 
 const API_URL = configuration.app.API_URL!
 const API_PREFIX = configuration.app.API_PREFIX
+type RefreshResult = Awaited<ReturnType<typeof AuthActions.refresh>>
 let isRefreshing = false
-let refreshPromise: Promise<any> | null = null
+let refreshPromise: Promise<RefreshResult> | null = null
 
 export async function apiClientFetch<T>(
     path: string,

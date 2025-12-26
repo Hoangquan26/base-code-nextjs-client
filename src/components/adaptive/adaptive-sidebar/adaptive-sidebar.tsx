@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import { AdaptiveSidebarSection } from "./adaptive-sidebar-section.type";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 const LOGO_IMAGE_PATH = '/logo/logo-vicenza.png'
 

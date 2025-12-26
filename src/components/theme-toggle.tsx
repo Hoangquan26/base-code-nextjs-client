@@ -16,12 +16,17 @@ export function ThemeToggle({ className, ...props }: ThemeToggleProps) {
         setMounted(true);
     }, []);
 
-    const isDark = resolvedTheme === "dark";
+    const isDark = mounted && resolvedTheme === "dark";
+    const ariaLabel = mounted
+        ? isDark
+            ? "Switch to light mode"
+            : "Switch to dark mode"
+        : "Toggle theme";
 
     return (
         <button
             type="button"
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            aria-label={ariaLabel}
             className={cn(
                 "inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground shadow-sm transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none",
                 className,

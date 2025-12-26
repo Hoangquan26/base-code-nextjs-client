@@ -1,7 +1,7 @@
-import { AuthSession } from '@/modules/auth.module'
+import { AuthSession, AuthUser } from '@/modules/auth.module'
 import { useAuthStore } from './auth.store'
 import { apiClientFetch } from '@/lib/api/client'
-import { authApiRoute } from '@/services/auth.service'
+import { authApiRoute, authService } from '@/services/auth.service'
 
 type LoginPayload = {
     email: string
@@ -11,6 +11,14 @@ type LoginPayload = {
 type OAuthProvider = 'google' | 'facebook'
 type OAuthMode = 'redirect' | 'popup'
 
+const isAuthUser = (value: unknown): value is AuthUser => {
+    return Boolean(value) && typeof value === 'object' && 'id' in value
+}
+
+const isAuthSession = (value: unknown): value is AuthSession => {
+    return Boolean(value) && typeof value === 'object' && 'user' in value
+}
+
 export const AuthActions = {
     async login(payload: LoginPayload) {
         const data = await apiClientFetch<AuthSession>('/auth/login', {
@@ -19,7 +27,30 @@ export const AuthActions = {
         })
 
         useAuthStore.getState().setAuth(data)
+        if (!data.user) {
+            await AuthActions.fetchMe()
+        }
         return data
+    },
+
+    async fetchMe() {
+        const data = await authService.me()
+        const store = useAuthStore.getState()
+
+        if (isAuthSession(data)) {
+            if (data.user) {
+                store.setUser(data.user)
+                return data.user
+            }
+            return null
+        }
+
+        if (isAuthUser(data)) {
+            store.setUser(data)
+            return data
+        }
+
+        return null
     },
 
     async refresh() {

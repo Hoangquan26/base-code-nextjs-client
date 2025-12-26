@@ -8,6 +8,6 @@ export default function AppLogo() {
     const isMobile = useIsMobile()
 
     return (
-        isMobile ? <Image src={LOGO_IMAGE_PATH} alt="Logo" width={32} height={32} /> : <Image src={LOGO_IMAGE_PATH} alt="Logo" width={64} height={64} />
+        isMobile ? <Image src={LOGO_IMAGE_PATH} alt="Logo" width={32} height={32} /> : <Image src={LOGO_IMAGE_PATH} alt="Logo" width={48} height={48} />
     )
 }

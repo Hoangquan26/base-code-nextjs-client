@@ -2,7 +2,7 @@ import { LoginType } from '@/forms/login/login.init'
 import { RegisterType } from '@/forms/register/register.init'
 import { ApiErrorResponse, ApiResponse } from '@/lib/api/api.type'
 import { apiClientFetch } from '@/lib/api/client'
-import { AuthSession, AuthUser } from '@/modules/auth.module'
+import { AuthSession } from '@/modules/auth.module'
 
 export const authApiRoute = {
     login: () => '/auth/login',

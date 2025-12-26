@@ -1,18 +1,18 @@
-﻿'use client'
+'use client'
 
 import { FormikForm, FormikInput, FormikSubmitButton } from "@/components/form/formik";
 import AppLogo from "@/components/shared/app-logo/app-logo";
 import { loginInitial, type LoginType } from "@/forms/login/login.init";
 import { LoginSchema } from "@/forms/login/login.schema";
-import { authService } from "@/services/auth.service";
 import { AuthActions } from "@/stores/auth/auth.action";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function LoginPage() {
+    const router = useRouter();
     const handleOauth = (type: 'facebook' | 'google' = 'facebook') => {
-        AuthActions.oauth(type)
-    }
-
+        AuthActions.oauth(type);
+    };
     return (
         <div className="flex w-full flex-col justify-center overflow-y-auto px-4 py-8 sm:px-6 xl:py-14 relative z-10">
             <div className="mx-auto w-full max-w-sm lg:w-[420px]">
@@ -36,20 +36,20 @@ export default function page() {
                     }}
                     onSubmit={async (values: LoginType, { setStatus }) => {
                         try {
-                            const submited = await AuthActions.login(values)
+                            await AuthActions.login(values)
 
                             setStatus('')
+                            router.replace('/dashboard')
                             return;
                         }
-                        catch (error) {
-                            const message = (error as Error).message
+                        catch {
                             setStatus('Tên đăng nhập hoặc mật khẩu không hợp lệ')
                         }
                     }}
                     validationSchema={LoginSchema}
                 >
                     <FormikInput
-                        label="Tên đầy đủ"
+                        label="Tên đăng nhập"
                         id="email"
                         name="email"
                         placeholder="phongcongnghe | phongcongnghe@yahoo.com"

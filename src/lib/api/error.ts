@@ -9,12 +9,17 @@ export class ApiError extends Error {
     }
 }
 
+type ApiErrorBody = {
+    message?: string
+    code?: string
+}
+
 export async function parseApiError(
     res: Response
 ): Promise<ApiError> {
-    let body: any = {}
+    let body: ApiErrorBody = {}
     try {
-        body = await res.json()
+        body = (await res.json()) as ApiErrorBody
     } catch { }
 
     return new ApiError(

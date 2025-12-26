@@ -1,10 +1,12 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import type { ReactNode } from "react";
+import GuestGuard from "@/components/control/guest-guard";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
     return (
-        <div className="relative min-h-screen ">
-            <div className=" grid grid-cols-1 xl:grid-cols-2 w-full h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800">
+        <GuestGuard>
+            <div className="relative min-h-screen ">
+                <div className=" grid grid-cols-1 xl:grid-cols-2 w-full h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800">
                 {/* FORM */}
                 <div className=" flex items-center justify-center min-h-screen">
                     {children}
@@ -32,19 +34,19 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                                     <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white/20">v4.2 Released</span>
                                 </div>
                                 <blockquote className="text-3xl font-bold leading-tight text-white drop-shadow-sm mb-6">
-                                    “CRM Vicenza triển khai PB 0.0.1”
+                                    “CRM Vicenza tri?n khai PB 0.0.1”
                                 </blockquote>
                                 <div className="flex items-center gap-4 mb-10">
                                     <div className="h-12 w-12 rounded-full bg-slate-200 overflow-hidden ring-2 ring-white">
                                         <Image alt="" width={58} height={58} className="h-full w-full object-cover" data-alt="Portrait of a professional business woman smiling" src="/img/team-img.jpg" />
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="text-base font-bold text-white">Phòng công nghệ</span>
+                                        <span className="text-base font-bold text-white">Phòng công ngh?</span>
                                         <span className="text-sm text-slate-300">@VicenzaTech 2025.</span>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-2 font-bold group-hover/quote:animate-none group-hover/quote:text-vicenza-400 text-vicenza-500 transition-colors">
-                                    <span>Xem thêm bản tin mới nhất</span>
+                                    <span>Xem thêm b?n tin m?i nh?t</span>
                                 </div>
                             </div>
                         </label>
@@ -133,5 +135,13 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 </div>
             </div>
         </div>
+        </GuestGuard>
     );
 }
+
+
+
+
+
+
+
