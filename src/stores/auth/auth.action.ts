@@ -12,14 +12,18 @@ type OAuthProvider = 'google' | 'facebook'
 type OAuthMode = 'redirect' | 'popup'
 
 const isAuthUser = (value: unknown): value is AuthUser => {
-    return Boolean(value) && typeof value === 'object' && 'id' in value
+    return value !== null && typeof value === 'object' && 'id' in value
 }
 
 const isAuthSession = (value: unknown): value is AuthSession => {
-    return Boolean(value) && typeof value === 'object' && 'user' in value
+    return value !== null && typeof value === 'object' && 'user' in value
 }
 
 export const AuthActions = {
+    updateUser(payload: Partial<AuthUser>) {
+        useAuthStore.getState().updateUser(payload)
+    },
+
     async login(payload: LoginPayload) {
         const data = await apiClientFetch<AuthSession>('/auth/login', {
             method: 'POST',

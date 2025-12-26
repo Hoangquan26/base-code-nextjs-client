@@ -1,8 +1,13 @@
+export type AvatarSource = string
+
 export type AuthUser = {
   id: string
   email?: string | null
   name?: string | null
   roles?: string[]
+  avatarUrl?: string | null
+  avatarSource?: AvatarSource | null
+  avatarUpdatedAt?: string | null
 }
 
 export type AuthTokens = {

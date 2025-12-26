@@ -5,6 +5,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 type AuthStore = AuthSession & {
     setAuth: (payload: AuthSession) => void
     setUser: (user: AuthUser | null) => void
+    updateUser: (payload: Partial<AuthUser>) => void
     setTokens: (payload: Partial<AuthTokens>) => void
     clearAuth: () => void
 }
@@ -31,6 +32,12 @@ export const useAuthStore = create<AuthStore>()(
 
             setUser: (user) => {
                 set({ user })
+            },
+
+            updateUser: (payload) => {
+                const current = get().user
+                if (!current) return
+                set({ user: { ...current, ...payload } })
             },
 
             setTokens: (payload) => {

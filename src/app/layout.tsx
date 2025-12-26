@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { fontMono, fontSans } from "./fonts";
 
 export const metadata: Metadata = {
@@ -26,7 +25,6 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <div className="fixed right-4 top-2 z-50 md:top-4 cursor-pointer">
-                        <ThemeToggle />
                     </div>
                     {children}
                 </ThemeProvider>

@@ -36,6 +36,9 @@ type AdaptiveSidebarProps = {
     children?: React.ReactNode;
     className?: string;
     contentClassName?: string;
+    contentWrapperClassName?: string;
+    showHeaderTrigger?: boolean;
+    showRail?: boolean;
     collapsible?: "offcanvas" | "icon" | "none";
     variant?: "sidebar" | "floating" | "inset";
     side?: "left" | "right";
@@ -113,6 +116,9 @@ export function AdaptiveSidebar({
     children,
     className,
     contentClassName,
+    contentWrapperClassName,
+    showHeaderTrigger = true,
+    showRail = true,
     collapsible = "offcanvas",
     variant = "inset",
     side = "left",
@@ -120,20 +126,24 @@ export function AdaptiveSidebar({
     return (
         <SidebarProvider className={cn("min-h-screen", className)}>
             <Sidebar side={side} variant={variant} collapsible={collapsible}>
-                <SidebarHeader className="border-b border-sidebar-border">
-                    <div className="flex items-center gap-3 px-2 py-2">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-md text-brand-foreground text-sm font-semibold">
-                            <Image src={LOGO_IMAGE_PATH} alt="Logo vicenza" height={128} width={128} />
+                <SidebarHeader className="border-b border-sidebar-border h-16">
+                    <div className="flex h-full items-center justify-between gap-3 px-4">
+                        <div className=" flex items-center gap-2">
+                            <div className="flex h-9 w-9 items-center justify-center rounded-md text-brand-foreground text-sm font-semibold">
+                                <Image src={LOGO_IMAGE_PATH} alt="Logo vicenza" height={128} width={128} />
+                            </div>
+                            <div>
+                                <p className="text-md font-semibold">{title}</p>
+                                {subtitle ? (
+                                    <p className="text-xs text-sidebar-foreground/70">{subtitle}</p>
+                                ) : null}
+                            </div>
                         </div>
-                        <div>
-                            <p className="text-sm font-semibold">{title}</p>
-                            {subtitle ? (
-                                <p className="text-xs text-sidebar-foreground/70">{subtitle}</p>
-                            ) : null}
-                        </div>
-                        <div className="hidden md:block">
-                            <SidebarTrigger />
-                        </div>
+                        {showHeaderTrigger ? (
+                            <div className="hidden md:block">
+                                <SidebarTrigger />
+                            </div>
+                        ) : null}
                     </div>
                 </SidebarHeader>
                 <SidebarContent className="px-1 py-2">
@@ -144,7 +154,7 @@ export function AdaptiveSidebar({
                         {footer}
                     </SidebarFooter>
                 ) : null}
-                <SidebarRail />
+                {showRail ? <SidebarRail /> : null}
             </Sidebar>
             <SidebarInset className={cn("min-h-screen", contentClassName)}>
                 <header className="sticky top-0 z-40 flex items-center h-14 gap-3 border-b border-border bg-background/80 px-4 backdrop-blur md:hidden">
@@ -156,7 +166,9 @@ export function AdaptiveSidebar({
                         ) : null}
                     </div>
                 </header>
-                <div className="flex-1 p-4 lg:p-6">{children}</div>
+                <div className={cn("flex-1", contentWrapperClassName)}>
+                    {children}
+                </div>
             </SidebarInset>
         </SidebarProvider>
     );
