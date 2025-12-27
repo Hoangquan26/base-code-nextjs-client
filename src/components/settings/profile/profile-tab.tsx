@@ -1,10 +1,11 @@
-﻿"use client"
+"use client"
 
 import { useMemo, useState } from "react"
-import Image from "next/image"
 import { Mail, Phone } from "lucide-react"
-import UnsavedChangesBar from "@/components/layout/unsaved-changes-bar"
 
+import UnsavedChangesBar from "@/components/layout/unsaved-changes-bar"
+import AvatarDialog from "@/components/settings/profile/avatar-dialog"
+import AvatarPreviewButton from "@/components/settings/profile/avatar-preview-button"
 import {
     Card,
     CardContent,
@@ -29,6 +30,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import { useAuthUser } from "@/stores/auth/auth.selector"
 
 type ProfileFormValues = {
     firstName: string
@@ -53,10 +55,12 @@ const createDefaultValues = (): ProfileFormValues => ({
 })
 
 export default function ProfileTabContent() {
+    const authUser = useAuthUser()
     const [baselineValues, setBaselineValues] = useState<ProfileFormValues>(
         createDefaultValues
     )
     const [values, setValues] = useState<ProfileFormValues>(createDefaultValues)
+    const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false)
 
     const isDirty = useMemo(() => {
         return JSON.stringify(values) !== JSON.stringify(baselineValues)
@@ -70,22 +74,24 @@ export default function ProfileTabContent() {
         setBaselineValues({ ...values })
     }
 
+    const displayName = authUser?.name ?? authUser?.email ?? "Người dùng"
+    const avatarUrl = authUser?.avatarUrl ?? "/img/team-img.jpg"
+
     return (
         <div className="relative flex flex-col gap-6">
             <Card>
                 <CardHeader className="border-b">
                     <div className="flex items-center gap-4">
-                        <Image
-                            src="/img/team-img.jpg"
-                            alt="Profile photo"
-                            width={64}
-                            height={64}
-                            className="h-16 w-16 rounded-full object-cover"
+                        <AvatarPreviewButton
+                            avatarUrl={avatarUrl}
+                            displayName={displayName}
+                            onClick={() => setIsAvatarDialogOpen(true)}
                         />
                         <div className="space-y-1">
                             <CardTitle>Thông tin cá nhân</CardTitle>
                             <CardDescription>
-                                Cập nhật ảnh đại diện và thông tin cá nhân trong hệ thống CRM.
+                                Cập nhật ảnh đại diện và thông tin cá nhân trong
+                                hệ thống CRM.
                             </CardDescription>
                         </div>
                     </div>
@@ -97,13 +103,14 @@ export default function ProfileTabContent() {
                                 type="button"
                                 variant="link"
                                 className="h-auto justify-start p-0 text-sm text-muted-foreground"
+                                onClick={() => setIsAvatarDialogOpen(true)}
                             >
                                 Thay đổi ảnh đại diện
                             </Button>
                         </div>
                         <div className="grid gap-4 md:grid-cols-2">
                             <div className="space-y-2">
-                                <Label htmlFor="first-name">First Name</Label>
+                                <Label htmlFor="first-name">Tên</Label>
                                 <Input
                                     id="first-name"
                                     value={values.firstName}
@@ -116,7 +123,7 @@ export default function ProfileTabContent() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="last-name">Last Name</Label>
+                                <Label htmlFor="last-name">Họ</Label>
                                 <Input
                                     id="last-name"
                                     value={values.lastName}
@@ -129,7 +136,7 @@ export default function ProfileTabContent() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="username">Username</Label>
+                                <Label htmlFor="username">Tên đăng nhập</Label>
                                 <InputGroup>
                                     <InputGroupAddon>
                                         <InputGroupText>
@@ -149,7 +156,7 @@ export default function ProfileTabContent() {
                                 </InputGroup>
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="role">Professional Role</Label>
+                                <Label htmlFor="role">Vai trò</Label>
                                 <Input
                                     id="role"
                                     value={values.role}
@@ -169,7 +176,9 @@ export default function ProfileTabContent() {
             <Card>
                 <CardHeader className="border-b">
                     <CardTitle>Thông tin liên hệ</CardTitle>
-                    <CardDescription>Liên hệ của bạn được hiển thị trong hệ thống!</CardDescription>
+                    <CardDescription>
+                        Liên hệ của bạn được hiển thị trong hệ thống.
+                    </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-5 pt-6">
                     <div className="space-y-2">
@@ -223,7 +232,7 @@ export default function ProfileTabContent() {
                                 }
                             >
                                 <SelectTrigger id="country" className="w-full">
-                                    <SelectValue placeholder="Select country" />
+                                    <SelectValue placeholder="Chọn quốc gia" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="vn">Vietnam</SelectItem>
@@ -248,7 +257,8 @@ export default function ProfileTabContent() {
                             }
                         />
                         <p className="text-xs text-muted-foreground">
-                            Thông tin thêm về bản thân, hoặc một số đường link liên kết khác.
+                            Thông tin thêm về bản thân hoặc đường dẫn liên kết
+                            khác.
                         </p>
                     </div>
                 </CardContent>
@@ -258,6 +268,12 @@ export default function ProfileTabContent() {
                 visible={isDirty}
                 onDiscard={handleDiscard}
                 onSave={handleSave}
+            />
+            <AvatarDialog
+                open={isAvatarDialogOpen}
+                onOpenChange={setIsAvatarDialogOpen}
+                currentAvatarUrl={avatarUrl}
+                displayName={displayName}
             />
         </div>
     )

@@ -1,4 +1,4 @@
-﻿import PageBreadcrumb from "@/components/layout/page-breadcrumb"
+import PageBreadcrumb from "@/components/layout/page-breadcrumb"
 import ProfileTabContent from "@/components/settings/profile/profile-tab"
 import SecurityTabContent from "@/components/settings/profile/security-tab"
 import {
@@ -10,21 +10,21 @@ import {
 
 export default function ProfilePage() {
     const breadcrumbItems = [
-        { label: "Trang chủ", href: "/dashboard" },
-        { label: "Cài đặt", href: "/settings" },
-        { label: "Thông tin cá nhân" },
+        { label: "Home", href: "/dashboard" },
+        { label: "Settings", href: "/settings" },
+        { label: "Profile" },
     ]
 
     return (
         <div className="mx-auto flex w-full flex-col gap-6">
             <div className="space-y-2">
                 <PageBreadcrumb items={breadcrumbItems} />
-                <div className=" flex flex-col gap-1">
+                <div>
                     <h2 className="text-2xl font-semibold text-foreground">
-                        Thông tin cá nhân
+                        My Profile
                     </h2>
                     <p className="text-sm text-muted-foreground">
-                        Quản lý thông tin cá nhân & bảo mật & tài khoản của bạn trên hệ thống CRM.
+                        Manage your personal information and account preferences.
                     </p>
                 </div>
             </div>
@@ -32,13 +32,13 @@ export default function ProfilePage() {
                 <TabsList className="h-auto w-full justify-start gap-8 rounded-none border-b border-border bg-transparent p-0">
                     <TabsTrigger
                         value="profile"
-                        className="cursor-pointer h-auto flex-none rounded-none border-b-2 border-transparent px-0 pb-3 pt-2 text-sm font-medium text-muted-foreground shadow-none data-[state=active]:border-b-vicenza-500 data-[state=active]:bg-transparent data-[state=active]:text-vicenza-600 data-[state=active]:shadow-none transition-colors"
+                        className="h-auto flex-none rounded-none border-b-2 border-transparent px-0 pb-3 pt-2 text-sm font-medium text-muted-foreground shadow-none data-[state=active]:border-b-vicenza-500 data-[state=active]:text-vicenza-600 data-[state=active]:bg-transparent data-[state=active]:shadow-none cursor-pointer"
                     >
                         Thông tin chung
                     </TabsTrigger>
                     <TabsTrigger
                         value="security"
-                        className="cursor-pointer h-auto flex-none rounded-none border-b-2 border-transparent px-0 pb-3 pt-2 text-sm font-medium text-muted-foreground shadow-none data-[state=active]:border-b-vicenza-500 data-[state=active]:bg-transparent data-[state=active]:text-vicenza-600 data-[state=active]:shadow-none transition-colors"
+                        className="h-auto flex-none rounded-none border-b-2 border-transparent px-0 pb-3 pt-2 text-sm font-medium text-muted-foreground shadow-none data-[state=active]:border-b-vicenza-500 data-[state=active]:text-vicenza-600 data-[state=active]:bg-transparent data-[state=active]:shadow-none cursor-pointer"
                     >
                         Bảo mật
                     </TabsTrigger>

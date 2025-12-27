@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useLayoutEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -23,7 +23,7 @@ type AnchorStyle = {
 export default function UnsavedChangesBar({
     visible,
     title = "Bạn có thay đổi chưa lưu.",
-    description = "Lưu thay đổi hoặc hủy để tiếp tục.",
+    description = "Lưu hoặc hủy để tiếp tục.",
     saveLabel = "Lưu thay đổi",
     discardLabel = "Hủy",
     onSave,
@@ -64,8 +64,7 @@ export default function UnsavedChangesBar({
             ref={containerRef}
             className={cn(
                 "fixed bottom-6 z-40",
-                !hasAnchor &&
-                    "left-0 right-0 mx-auto w-full max-w-5xl",
+                !hasAnchor && "left-0 right-0 mx-auto w-full max-w-5xl",
                 className
             )}
             style={
@@ -79,19 +78,19 @@ export default function UnsavedChangesBar({
         >
             <div
                 className={cn(
-                    "flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border/80 bg-background/90 px-5 py-6 shadow-xl shadow-black/5 backdrop-blur transition-all duration-300 ease-out motion-reduce:transition-none supports-[backdrop-filter]:bg-background/70",
+                    "flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border/80 bg-background/90 px-5 py-4 shadow-lg shadow-black/5 backdrop-blur transition-all duration-300 ease-out motion-reduce:transition-none supports-[backdrop-filter]:bg-background/70",
                     visible
                         ? "translate-y-0 opacity-100"
                         : "pointer-events-none translate-y-4 opacity-0"
                 )}
             >
-                <div className=" flex w-full items-center gap-3 lg:w-fit">
-                    <span className="h-full rounded-tl-2xl rounded-bl-2xl w-2.5  bg-amber-400 absolute left-0" />
-                    <div className="ml-2">
-                        <p className="text-md font-semibold text-foreground">
+                <div className="flex w-full items-center gap-3 lg:w-fit">
+                    <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                    <div>
+                        <p className="text-sm font-semibold text-foreground">
                             {title}
                         </p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-xs text-muted-foreground">
                             {description}
                         </p>
                     </div>
@@ -100,7 +99,7 @@ export default function UnsavedChangesBar({
                     <Button
                         type="button"
                         variant="outline"
-                        size="lg"
+                        size="sm"
                         className="grow basis-1/2 lg:basis-0 lg:grow-0"
                         onClick={onDiscard}
                     >
@@ -108,7 +107,7 @@ export default function UnsavedChangesBar({
                     </Button>
                     <Button
                         type="button"
-                        size="lg"
+                        size="sm"
                         className="bg-vicenza-500 hover:bg-vicenza-600 basis-1/2 grow lg:basis-0 lg:grow-0"
                         onClick={onSave}
                     >

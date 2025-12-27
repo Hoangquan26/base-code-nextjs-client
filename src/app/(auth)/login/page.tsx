@@ -37,7 +37,6 @@ export default function LoginPage() {
                     onSubmit={async (values: LoginType, { setStatus }) => {
                         try {
                             await AuthActions.login(values)
-
                             setStatus('')
                             router.replace('/dashboard')
                             return;
